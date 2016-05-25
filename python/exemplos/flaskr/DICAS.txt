@@ -1,0 +1,8 @@
+[OFFICIAL_SITE]
+
+http://flask.pocoo.org/
+
+[TUTORIAL]
+
+## um bom para iniciar o desenvolvimento em Flask!
+http://pythonclub.com.br/what-the-flask-pt-1-introducao-ao-desenvolvimento-web-com-pythonclub
