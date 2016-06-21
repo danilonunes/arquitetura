@@ -9,19 +9,21 @@ n_build = 1
 txt_versao = '{0}.{1}.{2}'.format(n_version, n_release, n_build)
 
 base_html = """
-  <html>
-  <link rel=stylesheet type=text/css href="{css_file}">
-  <head>
-      <title>{title}</title>
-  </head>
-  <body>
-    <img src="{logo_url}" />
-    <hr />
-    {body}
-    <hr />
-    <em>Versão {versao}</em>
-  </body>
-  </html>
+    <html>
+        <link rel=stylesheet type=text/css href="{css_file}">
+        <head>
+            <title>{title}</title>
+        </head>
+        <div class=main>
+            <body>
+                <img src="{logo_url}" />
+                <hr />
+                {body}
+                <hr />
+                <em>Versão {versao}</em>
+            </body>
+        </div>
+    </html>
 """
 
 @app.route('/')
