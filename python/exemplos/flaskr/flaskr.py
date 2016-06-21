@@ -5,8 +5,10 @@ from flask import Flask, request, session, g, redirect, url_for, \
 
 from contextlib import closing
 
+
 # create our little application :)
-app = Flask(__name__)
+app = Flask('flaskr') ## definindo o nome da aplicação/serviço que está sendo criado
+
 
 # Load default config and override config from an environment variable
 app.config.update(dict(
