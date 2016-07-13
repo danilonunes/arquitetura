@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block logout %}<!-- remove btn logout -->{% endblock %}
+{% block content %}
+<dl>
+    <dt>Nome completo</dt>
+    <dd>{{ user.nome_completo }}</dd>
+    <dt>Nome de usuário</dt>
+    <dd>{{ user.nome_usuário }}</dd>
+    <dt>E-mail</dt>
+    <dd>{{ user.email }}</dd>
+    <dt>Tipo</dt>
+    <dd>{{ user.getRegra() }}</dd>
+    <dt>Situação</dt>
+    <dd>{{ user.getSituacao() }}</dd>
+</dl>
+{% endblock %}
+{% block footer %}
+<a class="bt-action bt-action-user" href="{{ url_for('usuarios.logout') }}">
+<span>Logout</span>
+</a>
+{% endblock %}
