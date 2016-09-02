@@ -58,11 +58,15 @@ class Pessoa(object):
     def data_nasc(self, valor):
         if not valor:
             raise Exception("O valor informado para o atributo data_nasc é inválido.")
+        
+        #verificando se a data informada é maior que a data atual
+        if not (valor <= datetime.date.today()):
+            m = "Uma data de nascimento futura não é aceitável.\nValor informado: {0}".format(valor.isoformat())
+            raise Exception(m)
+            
         self.__data_nasc = valor
 
-from oo_property import Pessoa
-
-p1 = Pessoa('Danilo Nunes', 'M', datetime.date(1983, 3, 20))
+p1 = Pessoa('Danilo Nunes', 'M', datetime.date(2983, 3, 20))
 print(p1)
 print(p1.nome, '\n', p1.sexo, '\n', p1.data_nasc)
 
