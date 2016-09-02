@@ -20,4 +20,49 @@
 #
 # ***************** ************ ***************** 
 
+import datetime
+
+class Pessoa(object):
+    def __init__(self, nome, sexo, dt_nasc):
+        self.__nome = nome
+        self.__sexo = sexo
+        self.data_nasc = dt_nasc
+    
+    @property
+    def nome(self):
+        return self.__nome
+    
+    @nome.setter
+    def nome(self, valor):
+        if not valor or (valor == ''):
+            raise Exception("O valor informado para o atributo nome é inválido.")
+        self.__nome = valor         
+
+    @property
+    def sexo(self):
+        return self.__sexo
+    
+    @sexo.setter
+    def sexo(self, valor):
+        if (not valor or (valor == '') 
+            or (valor not in ['F', 
+                'f', 'M', 'm', 'O', 'o'])):
+            raise Exception("O valor informado para o atributo sexo é inválido.")
+        self.__sexo = valor         
+        
+    @property
+    def data_nasc(self):
+        return self.__data_nasc
+    
+    @data_nasc.setter
+    def data_nasc(self, valor):
+        if not valor:
+            raise Exception("O valor informado para o atributo data_nasc é inválido.")
+        self.__data_nasc = valor
+
+from oo_property import Pessoa
+
+p1 = Pessoa('Danilo Nunes', 'M', datetime.date(1983, 3, 20))
+print(p1)
+print(p1.nome, '\n', p1.sexo, '\n', p1.data_nasc)
 
