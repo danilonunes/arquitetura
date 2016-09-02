@@ -20,6 +20,21 @@
 #
 # ***************** ************ ***************** 
 
+
+# +++++++++++++++++ constantes ++++++++++++++++++
+
+# sexo
+MASCULINO = 'M'
+FEMININO = 'F'
+OUTROS = 'O'
+SEXO = {MASCULINO: 'Masculino',
+        FEMININO: 'Feminino',
+        OUTROS: 'Outros',
+}
+
+
+# +++++++++++++ fim - constantes ++++++++++++++++
+
 import datetime
 
 class Pessoa(object):
@@ -56,7 +71,7 @@ class Pessoa(object):
     
     @data_nasc.setter
     def data_nasc(self, valor):
-        if not valor:
+        if not valor or not isinstance(valor, datetime.date):
             raise Exception("O valor informado para o atributo data_nasc é inválido.")
         
         #verificando se a data informada é maior que a data atual
@@ -66,7 +81,10 @@ class Pessoa(object):
             
         self.__data_nasc = valor
 
-p1 = Pessoa('Danilo Nunes', 'M', datetime.date(2983, 3, 20))
-print(p1)
+p1 = Pessoa('Danilo Nunes', MASCULINO, datetime.date(1983, 3, 20))
+
+print('Usando constantes')
+print(p1.nome, '\n', SEXO[p1.sexo], '\n', p1.data_nasc)
+print('Modelo de objetos')
 print(p1.nome, '\n', p1.sexo, '\n', p1.data_nasc)
 
