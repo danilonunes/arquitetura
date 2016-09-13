@@ -55,15 +55,35 @@ class CadastroController(object):
         if id not in self.__pessoas.keys():
             raise Exception('KeyError: o ID informado não existe.')
 
-        del(self.__pessoas[id])
+        del self.__pessoas[id]
 
     def listarPessoas(self):
-        return self.__pessoas
+        return sorted(self.__pessoas.items())
 
 if __name__ == '__main__':
 
+    from operator import itemgetter, attrgetter
+
     tarq = CadastroController()
-    tarq.incluirPessoa('Danilo Nunes',
-        constantes.MASCULINO, dt.date(1983, 3, 20),
+    tarq.incluirPessoa('João',
+        constantes.MASCULINO, dt.date(1983, 4, 2),
         constantes.CASADO)
-    print(tarq.listarPessoas())
+    tarq.incluirPessoa('Pedro',
+        constantes.MASCULINO, dt.date(1978, 9, 11),
+        constantes.SOLTEIRO)
+    tarq.incluirPessoa('Maria',
+        constantes.FEMININO, dt.date(1943, 1, 31),
+        constantes.VIUVO)
+    tarq.incluirPessoa('Filomena',
+        constantes.MASCULINO, dt.date(1935, 12, 25),
+        constantes.VIUVO)
+    tarq.incluirPessoa('Facebookson',
+        constantes.MASCULINO, dt.date(2012, 1, 1),
+        constantes.SOLTEIRO)
+
+    pessoas = tarq.listarPessoas()
+
+    # print(sorted(pessoas))
+    for i in sorted(pessoas):
+        print('ID: ', i[0], ' |', i[1].nome, ' |', i[1].data_nasc,
+            ' |', i[1].sexo, ' |', i[1].estadoCivil, '|')

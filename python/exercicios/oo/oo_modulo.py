@@ -1,27 +1,16 @@
 #!/usr/bin/env python3
 
+'''
+    Esse módulo tem como objetivo apresentar a modularização das constantes.
+    Para isso foi criado um arquivo chamado constantes.py
+'''
+
 # ************************************************
 #              IFNMG - Campus Januária
 #                       TADS
 #              Arquitetura de Software
 # ************************************************
-# ***************** exercício 01 ***************** 
-# ************************************************
-# Faça um programa em Python (>= 3) onde exista
-# uma classe Pessoa com os seguintes atributos:
-#   - nome;
-#   - sexo;
-#   - data_nasc (import datetime);
-#   - estadoCivil.
 # 
-# Os dados para referentes aos atributos devem
-# ser informados no momento da instancialização
-# do objeto. Cada atributo deve ser representado
-# por uma propriedade (RW).
-#
-# ***************** ************ ***************** 
-
-
 # -------------------- constantes -------------------
 # as constantes estão definidas em um módulo 
 # próprio chamado de constantes.py
@@ -31,6 +20,9 @@ from constantes import MASCULINO, FEMININO, OUTROS, SEXO, ESTADO_CIVIL, SOLTEIRO
 from constantes import CASADO, DIVORCIADO, VIUVO, SEPARADO, COMPANHEIRO
 
 class Pessoa(object):
+    '''
+        Classe Pessoa para um simples cadastro
+    '''
     def __init__(self, nome, sexo, dt_nasc, est_civil):
         self.__nome = nome
         self.__sexo = sexo
@@ -87,16 +79,18 @@ class Pessoa(object):
         self.__est_civil = valor         
 
 
+
 # !!!!!!!!!!!!!!!! Testando... !!!!!!!!!!!!!!!!!!!
+if __name__ == '__main__':
 
-p1 = Pessoa('Danilo Nunes', 
-            MASCULINO, 
-            datetime.date(1983, 3, 20),
-            CASADO)
+    p1 = Pessoa('Danilo Nunes', 
+                MASCULINO, 
+                datetime.date(1983, 3, 20),
+                CASADO)
 
-print(p1.nome, '\n', SEXO[p1.sexo], '\n', p1.data_nasc, '\n',
-    ESTADO_CIVIL[p1.estadoCivil])
-print('Modelo de objetos')
-print(p1.nome, '\n', p1.sexo, '\n', p1.data_nasc, '\n',
-    p1.estadoCivil)
+    print(p1.nome, '\n', SEXO[p1.sexo], '\n', p1.data_nasc, '\n',
+        ESTADO_CIVIL[p1.estadoCivil])
+    print('Modelo de objetos')
+    print(p1.nome, '\n', p1.sexo, '\n', p1.data_nasc, '\n',
+        p1.estadoCivil)
 

@@ -87,4 +87,3 @@ print('Usando constantes')
 print(p1.nome, '\n', SEXO[p1.sexo], '\n', p1.data_nasc)
 print('Modelo de objetos')
 print(p1.nome, '\n', p1.sexo, '\n', p1.data_nasc)
-
