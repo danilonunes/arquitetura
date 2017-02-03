@@ -1,5 +1,8 @@
 *.pyc
 
+/flask_env
+/myAppOrm_env
+
 /bin
 /include
 /lib
