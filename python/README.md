@@ -1,6 +1,6 @@
-#Como fazer um ambiente virtual - VirtualEnv
+# Como fazer um ambiente virtual - VirtualEnv
 
-##Instalando o VirtualEnv no Debian e derivados
+## Instalando o VirtualEnv no Debian e derivados
 
 '''
 sudo apt update
@@ -8,7 +8,7 @@ sudo apt install virtualenv
 sudo apt install python3-virtualenv
 '''
 
-##Criando um ambiente virtual
+## Criando um ambiente virtual
 '''
 virtualenv -p python3.5 [diretório]/meu_ambiente
 '''
@@ -18,13 +18,13 @@ informado esse parâmetro, o VirtualEnv definirá como interpretador o usado com
 padrão pelo sistema operacional.
 
 
-##Instalando o PIP - Python package manager - no Debian e derivados
+## Instalando o PIP - Python package manager - no Debian e derivados
 
 '''
 sudo apt install pip
 '''
 
-##Ativando o meu ambiente virtual
+## Ativando o meu ambiente virtual
 '''
 source [diretório]/meu_ambiente/bin/activate
 '''
@@ -41,12 +41,12 @@ ___
 (xmlrpc) danilonunes@server:~/Documentos/disciplinas/arquitetura/python$
 '''
 
-##Desativando o meu ambiente virtual
+## Desativando o meu ambiente virtual
 '''
 deactivate
 '''
 
-##Instalando pacotes através do pip
+## Instalando pacotes através do pip
 '''
 pip install nomeDoPacote
 '''
@@ -64,13 +64,13 @@ comando:
 pip install -r requirements.txt
 '''
 
-##Verificando os pacotes instalados no ambiente virtual
+## Verificando os pacotes instalados no ambiente virtual
 
 '''
 pip freeze
 '''
 
-##Gerando o arquivo requirements.txt do meu projeto
+## Gerando o arquivo requirements.txt do meu projeto
 
 '''
 pip freeze > requirements.txt
