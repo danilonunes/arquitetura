@@ -40,9 +40,9 @@ class Venda(object):
         vt = 0.00
 
         for i in self.itens:
-            vt =+ i.subTotal
+            vt += self.itens[i].subTotal()
 
-        vt =- self.desconto
+        vt -= self.desconto
 
         return vt
 
@@ -62,7 +62,7 @@ class Venda(object):
             del self.itens[pIdProduto]
 
         else:
-            self.itens[pIdProduto].quantidade =- pQtde
+            self.itens[pIdProduto].quantidade -= pQtde
 
     def getItens(self):
         return (self.itens)
@@ -70,6 +70,7 @@ class Venda(object):
     def __repr__(self):
         return '{0}, {1}, {2}'.format(self.itens, self.desconto, str(self.data_hora))
 
+# **************************** código de teste *********************************
 # aqui verificamos se estamos executando esse arquivo ou usando-o como pacote
 if __name__ == "__main__":
     produtos = {}
