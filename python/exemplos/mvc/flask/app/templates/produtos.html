@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block navigator %}
+<table>
+    <tr>
+        <th><a href="/">Painel de controle</a></th>
+        <th><a href="vendas">Vendas</a></th>
+    </tr>
+</table>
+{% endblock %}
+
+{% block contents %}
+<table style="width:60%">
+    <tr>
+        Formulário de Produtos
+    </tr>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Vr. Custo</th>
+        <th>Vr. Venda</th>
+    </tr>
+    {% for produto in produtos %}
+        <tr>
+            <th> {{ produto.id }} </th>
+            <th> {{ produto.nome }} </th>
+            <th> {{ produto.vr_custo }} </th>
+            <th> {{ produto.vr_venda }} </th>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
+{% block footer %}
+<footer>Dados atualizados em {{ dat_hora_atualizacao }}</footer>
+{% endblock %}

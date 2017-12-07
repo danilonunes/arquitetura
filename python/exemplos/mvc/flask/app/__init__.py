@@ -9,6 +9,18 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 
 # Roteamento
+from app.model.model import Venda, Produto, ItemVenda
+from datetime import datetime
+
 @app.route('/')
 def index():
-    return render_template('index.html', msg="Olha o Flask rodando")
+    pc = Produto.query.count()
+    vc = Venda.query.count()
+    return render_template('index.html', num_prods=pc, num_vendas=vc,
+        dat_hora_atualizacao=datetime.now())
+
+@app.route('/produtos')
+def frmProduto():
+    produtos = Produto.query.all()
+    return render_template('produtos.html', produtos=produtos,
+        dat_hora_atualizacao=datetime.now())

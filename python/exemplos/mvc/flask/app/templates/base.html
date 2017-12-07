@@ -1,23 +1,25 @@
-<!doctype html>
-<html>
-
+<!DOCTYPE html>
+<html lang="pt-br">
     <head>
         <meta charset="UTF-8">
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css' ) }}">
-        <title>Flask MVC</title>
+        <title>{% block title %}Flask MVC{% endblock %}</title>
+        {% block script %}
+        {% endblock %}
     </head>
-
     <body>
-
-        <header>
-        </header>
-
-        <main>
-        </main>
-
-        <footer>
-        </footer>
-
+        <div id="wrapper">
+            <div id="navigator">
+                {% block navigator %}{% endblock %}
+            </div>
+            <hr />
+            <div id="contents">
+                {% block contents %}{% endblock %}
+            </div>
+            <hr />
+            <div id="footer">
+                {% block footer %}{% endblock %}
+            </div>
+        </div>
     </body>
-
 </html>
