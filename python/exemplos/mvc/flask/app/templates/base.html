@@ -2,22 +2,22 @@
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css' ) }}">
+        <link rel=stylesheet type=text/css href="{{url_for('static', filename='w3.css')}}">
         <title>{% block title %}Flask MVC{% endblock %}</title>
         {% block script %}
         {% endblock %}
     </head>
     <body>
         <div id="wrapper">
-            <div id="navigator">
+            <div id="navigator" class="w3-container w3-teal">
                 {% block navigator %}{% endblock %}
             </div>
             <hr />
-            <div id="contents">
+            <div id="contents" class="w3-container">
                 {% block contents %}{% endblock %}
             </div>
             <hr />
-            <div id="footer">
+            <div id="footer" class="w3-container w3-teal">
                 {% block footer %}{% endblock %}
             </div>
         </div>

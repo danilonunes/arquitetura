@@ -78,7 +78,8 @@ def logout():
     
 
 if __name__ == '__main__':
-    import os
-    app.run(host=os.environ['IP'], port=int(os.environ['PORT']), debug=True)
+    #import os
+    #app.run(host=os.environ['IP'], port=int(os.environ['PORT']), debug=True)
+    app.run(debug=True)
     
 

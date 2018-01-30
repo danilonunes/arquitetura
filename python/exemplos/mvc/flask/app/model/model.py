@@ -1,4 +1,6 @@
 from app import db
+from marshmallow_sqlalchemy import ModelSchema
+
 
 class Produto(db.Model):
     __table_args__ = {'extend_existing': True}  # adicionado devido a bugs
@@ -14,8 +16,8 @@ class Produto(db.Model):
         self.vr_venda = vrVenda
 
     def __repr__(self):
-        return '<Produto %r, %r, %r, %r>' % (self.id, self.nome, self.vr_custo, self.vr_venda)
-
+        return '<Produto %r, %r, %r, %r>' % (self.id, self.nome, self.vr_custo,
+            self.vr_venda)
 
 class Venda(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -51,3 +53,23 @@ class ItemVenda(db.Model):
     def __repr__(self):
         return '<ItemVenda %r, %r, %r, %r>' % (self.produto_id, self.venda_id,
             self.quantidade, self.valor)
+
+## Definindo Schemas para serialização SQLAlchemy models para JSON
+
+class ProdutoSchema(ModelSchema):
+    class Meta:
+        model: Produto
+
+produto_schema = ProdutoSchema()
+
+class VendaSchema(ModelSchema):
+    class Meta:
+        model: Venda
+
+venda_schema = VendaSchema()
+
+class ItemVendaSchema(ModelSchema):
+    class Meta:
+        model: ItemVenda
+
+itemVenda_schema = ItemVendaSchema()

@@ -1,4 +1,23 @@
 {% extends "base.html" %}
+
+{% block script %}
+<script>
+    function getIdProduto(element){
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", "get_produto", false);
+        xhttp.send(element.cells[0].innerHTML); // busca o produto pelo id
+        text = xhttp.responseText
+        var result = JSON.parse(text); // Resultado em JSON
+        document.getElementById("prod_id").value = result.id;
+        document.getElementById("nome").value = result.nome;
+        document.getElementById("vr_custo").value = result.vr_custo.toFixed(2);
+        document.getElementById("vr_venda").value = result.vr_venda.toFixed(2);
+
+    }
+</script>
+{% endblock %}
+
 {% block navigator %}
 <table>
     <tr>
@@ -8,10 +27,39 @@
 </table>
 {% endblock %}
 
+{% from "macros.html" import render_field %}
 {% block contents %}
-<table style="width:60%">
+<form action="{{ url_for('produtos')}}" method="post">
+    {{ form.csrf_token }}
+
+    {{ render_field(form.id) }}
+
+    {{ render_field(form.nome) }}
+
+    {{ render_field(form.vr_custo) }}
+
+    {{ render_field(form.vr_venda) }}
+
+    <input type="submit" name="btnSalvar" value="Salvar" />
+</form>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="w3-ul">
+    {% for message in messages %}
+      <li class="w3-blue">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+{% if erro %}
+    <p class="w3-red"><strong>Erro:</strong> {{ erro }}</p>
+{% endif %}
+
+<table class="w3-table w3-bordered">
     <tr>
-        Formulário de Produtos
+        <h1>Listagem de produtos cadastrados</h1>
     </tr>
     <tr>
         <th>Id</th>
@@ -20,11 +68,11 @@
         <th>Vr. Venda</th>
     </tr>
     {% for produto in produtos %}
-        <tr>
-            <th> {{ produto.id }} </th>
-            <th> {{ produto.nome }} </th>
-            <th> {{ produto.vr_custo }} </th>
-            <th> {{ produto.vr_venda }} </th>
+        <tr onclick="getIdProduto(this)">
+            <td> {{ produto.id }} </td>
+            <td> {{ produto.nome }} </td>
+            <td> {{ '%0.2f' % produto.vr_custo|float }} </td>
+            <td> {{ '%0.2f' % produto.vr_venda|float }} </td>
         </tr>
     {% endfor %}
 </table>
