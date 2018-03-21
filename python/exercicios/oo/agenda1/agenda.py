@@ -1,3 +1,23 @@
+"""
+###########################################################
+##                                                       ##
+##                IFNMG Campus Januária                  ##
+##            Projeto Bate-papo Tecnológico              ##
+##              Python Orientado a Objetos               ##
+##          Exercício de Agenda de Contatos OO           ##
+##                  Prof. Danilo Nunes                   ##
+##              <danilo.nunes@ifnmg.edu.br>              ##
+##                                                       ##
+###########################################################
+"""
+
+__project_name__ = 'Projeto Bate-papo Tecnológico'
+__course_name__ = 'Python Orientado a Objetos'
+__lesson__ = 'Exercício de Agenda de Contatos OO'
+__author__ = 'Prof. Danilo Nunes <danilo.nunes@ifnmg.edu.br>'
+__source__ = 'http://github.com/danilonunes/cursos'
+
+
 ERR_ATTR_INVALID = 'O valor informado para \"{0}\" é inválido.'
 
 from validators import url, domain
@@ -10,16 +30,24 @@ class Categoria(object):
     '''
 
     def __init__(self, nome):
+        '''
+            Método de inicialização de uma instância da classe Categoria.
+            Recebe como argumento o "nome" que será atribuído a propriedade
+            "nome" da instância.
+        '''
         self.nome = nome
 
     @property
     def nome(self):
+        '''
+            Propriedade (rw) nome: nome de uma categoria de endereço.
+        '''
         return self._nome
 
     @nome.setter
     def nome(self, value):
         if not isinstance(value, str):
-            raise Exception(ERR_ATTR_INVALID.format('nome'))
+            raise Exception(ERR_ATTR_INVALID.format(self.__class__.__name__+'.nome'))
 
         self._nome = value
 
@@ -29,6 +57,12 @@ class Categoria(object):
 class Endereco(object):
     def __init__(self, logradouro, complemento, numero, bairro, cidade, estado,
         pais, cep, categoria):
+        '''
+            Método de inicialização de uma instância da classe Endereço.
+            Recebe como os argumentos "logradouro, complemento, numero, bairro,
+            cidade, estado, pais, cep e categoria" que serão atribuído as
+            devidas propriedades da instância.
+        '''
         self.logradouro = logradouro
         self.complemento = complemento
         self.numero = numero
@@ -41,6 +75,9 @@ class Endereco(object):
 
     @property
     def logradouro(self):
+        '''
+            Propriedade (rw) logradouro: logradouro de um endereço.
+        '''
         return self._logradouro
 
     @logradouro.setter
@@ -49,6 +86,9 @@ class Endereco(object):
 
     @property
     def complemento(self):
+        '''
+            Propriedade (rw) complemento: complemento de um endereço.
+        '''
         return self._complemento
 
     @complemento.setter
@@ -57,6 +97,9 @@ class Endereco(object):
 
     @property
     def numero(self):
+        '''
+            Propriedade (rw) numero: numero de um endereço.
+        '''
         return self._numero
 
     @numero.setter
@@ -65,6 +108,9 @@ class Endereco(object):
 
     @property
     def bairro(self):
+        '''
+            Propriedade (rw) bairro: bairro de um endereço.
+        '''
         return self._bairro
 
     @bairro.setter
@@ -73,6 +119,9 @@ class Endereco(object):
 
     @property
     def cidade(self):
+        '''
+            Propriedade (rw) cidade: cidade de um endereço.
+        '''
         return self._cidade
 
     @cidade.setter
@@ -81,6 +130,9 @@ class Endereco(object):
 
     @property
     def estado(self):
+        '''
+            Propriedade (rw) estado: estado de um endereço.
+        '''
         return self._estado
 
     @estado.setter
@@ -89,6 +141,9 @@ class Endereco(object):
 
     @property
     def pais(self):
+        '''
+            Propriedade (rw) pais: pais de um endereço.
+        '''
         return self._pais
 
     @pais.setter
@@ -97,6 +152,9 @@ class Endereco(object):
 
     @property
     def cep(self):
+        '''
+            Propriedade (rw) cep: cep de um endereço.
+        '''
         return self._cep
 
     @cep.setter
@@ -105,6 +163,9 @@ class Endereco(object):
 
     @property
     def categoria(self):
+        '''
+            Propriedade (rw) categoria: categoria de um endereço.
+        '''
         return self._categoria
 
     @categoria.setter
@@ -138,7 +199,7 @@ class Tipo(object):
     @nome.setter
     def nome(self, value):
         if not isinstance(value, str):
-            raise Exception(ERR_ATTR_INVALID.format('nome'))
+            raise Exception(ERR_ATTR_INVALID.format(self.__class__.__name__+'.nome'))
 
         self._nome = value
 
@@ -161,7 +222,7 @@ class Telefone(object):
     @ddd.setter
     def ddd(self, value):
         if not isinstance(value, str):
-            raise Exception(ERR_ATTR_INVALID.format('ddd'))
+            raise Exception(ERR_ATTR_INVALID.format(self.__class__.__name__+'.ddd'))
 
         self._ddd = value
 
@@ -172,7 +233,7 @@ class Telefone(object):
     @prefixo.setter
     def prefixo(self, value):
         if not isinstance(value, str):
-            raise Exception(ERR_ATTR_INVALID.format('prefixo'))
+            raise Exception(ERR_ATTR_INVALID.format(self.__class__.__name__+'.prefixo'))
 
         self._prefixo = value
 
@@ -183,7 +244,7 @@ class Telefone(object):
     @sulfixo.setter
     def sulfixo(self, value):
         if not isinstance(value, str):
-            raise Exception(ERR_ATTR_INVALID.format('sulfixo'))
+            raise Exception(ERR_ATTR_INVALID.format(self.__class__.__name__+'.sulfixo'))
 
         self._sulfixo = value
 
@@ -194,7 +255,7 @@ class Telefone(object):
     @ramal.setter
     def ramal(self, value):
         if not isinstance(value, str):
-            raise Exception(ERR_ATTR_INVALID.format('ramal'))
+            raise Exception(ERR_ATTR_INVALID.format(self.__class__.__name__+'.ramal'))
 
         self._ramal = value
 
@@ -325,12 +386,17 @@ class Agenda1(object):
         n_id = self._defineIdCategoriaEndereco()
         self._categoriasEndereco[n_id] = Categoria(nome)
 
-    def addTipoTelefone(self, nome):
-        if not isinstance(nome, str):
-            raise Exception(ERR_ATTR_INVALID.format('Tipo de endereço'))
+    def upgCategoriaEndereco(self, id, nome):
+        '''
+            Método para atualizar uma categoria de endereço.
+        '''
+        pass
 
-        n_id = self._defineIdTipoTelefone()
-        self._tiposTelefone[n_id] = Tipo(nome)
+    def rmCategoriaEndereco(self, id):
+        '''
+            Método para remover uma categoria de endereço.
+        '''
+        pass
 
     def getCategoriasEndereco(self):
         ce = []
@@ -338,6 +404,25 @@ class Agenda1(object):
             ce.append(tuple([i, self._categoriasEndereco[i].nome]))
 
         return tuple(ce)
+
+    def addTipoTelefone(self, nome):
+        if not isinstance(nome, str):
+            raise Exception(ERR_ATTR_INVALID.format('Tipo de endereço'))
+
+        n_id = self._defineIdTipoTelefone()
+        self._tiposTelefone[n_id] = Tipo(nome)
+
+    def upgTipoTelefone(self, id, nome):
+        '''
+            Método para atualizar um tipo de telefone.
+        '''
+        pass
+
+    def rmTipoTelefone(self, id):
+        '''
+            Método para atualizar um tipo de telefone.
+        '''
+        pass
 
     def getTiposTelefone(self):
         tt = []
@@ -351,7 +436,7 @@ class Agenda1(object):
             O argumento "enderecos" deve ser informado como uma list com dict(s)
             contendo as seguintes chaves: logradouro, complemento, numero,
             bairro, cidade, estado, pais, cep e categoria.
-                Ex.: enderecos[
+                Ex.: enderecos=[
                     {'logradouro':'Rua ...', 'complemento': '...',
                     'numero':'...', 'bairro':'...', 'cidade':'...',
                     'estado':'...', 'pais':'Brasil', 'cep':'39480-xxx',
@@ -364,7 +449,7 @@ class Agenda1(object):
 
             O argumento "telefones" deve ser informado como uma list com dict(s)
             contendo as seguintes chaves: ddd, prefixo, sulfixo, ramal, tipo.
-                Ex.: telefones[
+                Ex.: telefones=[
                     {'ddd':'38', 'prefixo':'3629', 'sulfixo':'4600', 'ramal':'',
                     'tipo':1},
                     {'ddd':'38', 'prefixo':'3629', 'sulfixo':'4600', 'ramal':'10',
@@ -398,6 +483,80 @@ class Agenda1(object):
 
         n_id = self._defineIdCadastro()
         self._cadastro[n_id] = contato
+
+    def upgContato(self, id, nome, apelido, site):
+        '''
+            Método para atualizar os dados de um contato.
+        '''
+        pass
+
+    def rmContato(self, idContato):
+        '''
+            Método para remover um contato.
+        '''
+        pass
+
+    def getContatosResumidos(self):
+        '''
+            Método para buscar todos os contatos de forma resumida, isto é,
+            sem endereço(s) e telefone(s).
+        '''
+        pass
+
+    def getContato(self, id):
+        '''
+            Método para buscar um contato.
+        '''
+        pass
+
+    def upgTelefoneContato(self, idContato, telefone=None):
+        '''
+            Método para atualizar os dados de um telefone de um contato.
+
+            O argumento "telefone" deve ser informado como um dict contendo as
+            seguintes chaves: id, ddd, prefixo, sulfixo, ramal, tipo.
+                Ex.: telefone={'id':1, 'ddd':'38', 'prefixo':'3629',
+                        'sulfixo':'4600', 'ramal':'', 'tipo':1}
+        '''
+        pass
+
+    def rmTelefoneContato(self, idContato, idTelefone):
+        '''
+            Método para remover um telefone de um contato.
+        '''
+        pass
+
+    def getTelefonesContato(self, idContato):
+        '''
+            Método para buscar o(s) telefone(s) de um contato.
+        '''
+        pass
+
+    def upgEnderecoContato(self, idContato, endereco=None):
+        '''
+            Método para atualizar os dados de um endereço de um contato.
+
+            O argumento "endereço" deve ser informado como um dict contendo as
+            seguintes chaves: id, logradouro, complemento, numero, bairro, cidade,
+            estado, pais, cep e categoria.
+                Ex.: endereco={'id':1, 'logradouro':'Rua ...', 'complemento': '...',
+                    'numero':'...', 'bairro':'...', 'cidade':'...',
+                    'estado':'...', 'pais':'Brasil', 'cep':'39480-xxx',
+                    'categoria':1}
+        '''
+        pass
+
+    def rmEnderecoContato(self, idContato, idEndereco):
+        '''
+            Método para remover um endereço de um contato.
+        '''
+        pass
+
+    def getEnderecoContato(self, idEndereco):
+        '''
+            Método para buscar o(s) endereço(s) de um contato.
+        '''
+        pass
 
     def __repr__(self):
         return '<Agenda1 categoriasEndereco=%s, tiposTelefone=%s, '\
@@ -435,9 +594,8 @@ if __name__ == '__main__':
             'pais':'Brasil', 'cep':'00000-000', 'categoria':c1},
             {'logradouro':'Rua X', 'complemento':'Barraco', 'numero':'245A',
                 'bairro':'Centro', 'cidade':'Ifnmglândia', 'estado':'Cansaço',
-                'pais':'Brasil', 'cep':'00000-000', 'categoria':c2}
-
-            ], telefones=[{'ddd':'38', 'prefixo':'3629', 'sulfixo':'4600',
+                'pais':'Brasil', 'cep':'00000-000', 'categoria':c2}],
+        telefones=[{'ddd':'38', 'prefixo':'3629', 'sulfixo':'4600',
             'ramal':'', 'tipo':t1}, {'ddd':'38', 'prefixo':'3629',
             'sulfixo':'4600', 'ramal':'123', 'tipo':t2}])
 
