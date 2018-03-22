@@ -19,6 +19,8 @@ __source__ = 'http://github.com/danilonunes/cursos'
 
 
 ERR_ATTR_INVALID = 'O valor informado para \"{0}\" é inválido.'
+ERR_ID_NOT_FOUND = 'O identificador \"{0}\" não foi encontrado.'
+ERR_ID_NOT_SEND = 'O identificador \"{0}\" não foi informado.'
 
 from validators import url, domain
 
@@ -208,10 +210,10 @@ class Tipo(object):
 
 class Telefone(object):
 
-    def __init__(self, ddd, prefixo, sulfixo, ramal, tipo):
+    def __init__(self, ddd, parte1, parte2, ramal, tipo):
         self.ddd = ddd
-        self.prefixo = prefixo
-        self.sulfixo = sulfixo
+        self.parte1 = parte1
+        self.parte2 = parte2
         self.ramal = ramal
         self.tipo = tipo
 
@@ -227,26 +229,26 @@ class Telefone(object):
         self._ddd = value
 
     @property
-    def prefixo(self):
-        return self._prefixo
+    def parte1(self):
+        return self._parte1
 
-    @prefixo.setter
-    def prefixo(self, value):
+    @parte1.setter
+    def parte1(self, value):
         if not isinstance(value, str):
-            raise Exception(ERR_ATTR_INVALID.format(self.__class__.__name__+'.prefixo'))
+            raise Exception(ERR_ATTR_INVALID.format(self.__class__.__name__+'.parte1'))
 
-        self._prefixo = value
+        self._parte1 = value
 
     @property
-    def sulfixo(self):
-        return self._sulfixo
+    def parte2(self):
+        return self._parte2
 
-    @sulfixo.setter
-    def sulfixo(self, value):
+    @parte2.setter
+    def parte2(self, value):
         if not isinstance(value, str):
-            raise Exception(ERR_ATTR_INVALID.format(self.__class__.__name__+'.sulfixo'))
+            raise Exception(ERR_ATTR_INVALID.format(self.__class__.__name__+'.parte2'))
 
-        self._sulfixo = value
+        self._parte2 = value
 
     @property
     def ramal(self):
@@ -272,8 +274,8 @@ class Telefone(object):
         self._tipo = value
 
     def __repr__(self):
-        return '<Telefone ddd=%s, prefixo=%s, sulfixo=%s, ramal=%s>' % (
-            self.ddd, self.prefixo, self.sulfixo, self.ramal)
+        return '<Telefone ddd=%s, parte1=%s, parte2=%s, ramal=%s>' % (
+            self.ddd, self.parte1, self.parte2, self.ramal)
 
 class Contato(object):
     def __init__(self, nome, apelido, site=None):
@@ -346,12 +348,49 @@ class Contato(object):
     def telefones(self):
         return self._telefones
 
-    def setTelefone(self, ddd, prefixo, sulfixo, ramal, tipo):
-        t = Telefone(ddd, prefixo, sulfixo, ramal, tipo)
+    def setTelefone(self, ddd, parte1, parte2, ramal, tipo):
+        t = Telefone(ddd, parte1, parte2, ramal, tipo)
 
         t_id = self._defineIdTelefone()
-        self._enderecos[t_id] = t
+        self._telefones[t_id] = t
 
+
+    def upgTelefone(self, telefone=None):
+        '''
+            Método para atualizar os dados de um telefone de um contato.
+
+            O argumento "telefone" deve ser informado como um dict contendo as
+            seguintes chaves: id, ddd, parte1, parte2, ramal, tipo.
+                Ex.: telefone={'id':1, 'ddd':'38', 'parte1':'3629',
+                        'parte2':'4600', 'ramal':'', 'tipo':1}
+        '''
+        if not ('id' in telefone):
+             raise Exception(ERR_ID_NOT_SEND.format(__class__.__name__ + '.id'))
+
+        if not (telefone['id'] in self._telefones):
+             raise Exception(ERR_ID_NOT_FOUND.format(telefone['id']))
+
+        t = self._telefones[telefone['id']]
+
+        if ('ddd' in telefone):
+            if t.ddd != telefone['ddd']:
+                t.ddd = telefone['ddd']
+
+        if ('parte1' in telefone):
+            if t.parte1 != telefone['parte1']:
+                t.parte1 = telefone['parte1']
+
+        if ('parte2' in telefone):
+            if t.parte2 != telefone['parte2']:
+                t.parte2 = telefone['parte2']
+
+        if ('ramal' in telefone):
+            if t.ramal != telefone['ramal']:
+                t.ramal = telefone['ramal']
+
+        if ('tipo' in telefone):
+            if t.tipo != telefone['tipo']:
+                t.tipo = telefone['tipo']
 
     def __repr__(self):
         return '<Contato nome=%s, apelido=%s, site=%s, telefones=%s, '\
@@ -390,7 +429,12 @@ class Agenda1(object):
         '''
             Método para atualizar uma categoria de endereço.
         '''
-        pass
+
+        if not (id in self._categoriasEndereco):
+            raise Exception(ERR_ID_NOT_FOUND.format(id))
+
+        ce = self._categoriasEndereco[id]
+        ce.nome = nome
 
     def rmCategoriaEndereco(self, id):
         '''
@@ -448,17 +492,17 @@ class Agenda1(object):
                     ]
 
             O argumento "telefones" deve ser informado como uma list com dict(s)
-            contendo as seguintes chaves: ddd, prefixo, sulfixo, ramal, tipo.
+            contendo as seguintes chaves: ddd, parte1, parte2, ramal, tipo.
                 Ex.: telefones=[
-                    {'ddd':'38', 'prefixo':'3629', 'sulfixo':'4600', 'ramal':'',
+                    {'ddd':'38', 'parte1':'3629', 'parte2':'4600', 'ramal':'',
                     'tipo':1},
-                    {'ddd':'38', 'prefixo':'3629', 'sulfixo':'4600', 'ramal':'10',
+                    {'ddd':'38', 'parte1':'3629', 'parte2':'4600', 'ramal':'10',
                     'tipo':2}
                     ]
         '''
         contato = Contato(nome, apelido, site)
 
-        if len(enderecos):
+        if len(enderecos): # verifica se foi informado algum endereço
             for e in enderecos:
                 if e['categoria'] in self._categoriasEndereco:
                     c = self._categoriasEndereco[e['categoria']]
@@ -470,7 +514,7 @@ class Agenda1(object):
                     e['numero'], e['bairro'], e['cidade'], e['estado'],
                     e['pais'], e['cep'], c)
 
-        if len(telefones):
+        if len(telefones):  # verifica se foi informado algum telefone
             for tel in telefones:
                 if tel['tipo'] in self._tiposTelefone:
                     t = self._tiposTelefone[tel['tipo']]
@@ -478,7 +522,7 @@ class Agenda1(object):
                     raise Exception('O tipo de telefone \'{0}\' não foi '\
                         'encontrado'.format(tel['tipo']))
 
-                contato.setTelefone(tel['ddd'], tel['prefixo'], tel['sulfixo'],
+                contato.setTelefone(tel['ddd'], tel['parte1'], tel['parte2'],
                     tel['ramal'], t)
 
         n_id = self._defineIdCadastro()
@@ -514,11 +558,22 @@ class Agenda1(object):
             Método para atualizar os dados de um telefone de um contato.
 
             O argumento "telefone" deve ser informado como um dict contendo as
-            seguintes chaves: id, ddd, prefixo, sulfixo, ramal, tipo.
-                Ex.: telefone={'id':1, 'ddd':'38', 'prefixo':'3629',
-                        'sulfixo':'4600', 'ramal':'', 'tipo':1}
+            seguintes chaves: id, ddd, parte1, parte2, ramal, tipo.
+                Ex.: telefone={'id':1, 'ddd':'38', 'parte1':'3629',
+                        'parte2':'4600', 'ramal':'', 'tipo':1}
         '''
-        pass
+        if not (idContato in self._cadastro):
+             raise Exception(ERR_ID_NOT_FOUND.format(idContato))
+
+        contato = self._cadastro[idContato]
+
+        if 'tipo' in telefone:
+            if not telefone['tipo'] in self._tiposTelefone:
+                raise Exception(ERR_ID_NOT_FOUND.format(telefone['tipo']))
+
+            telefone['tipo'] = self._tiposTelefone[telefone['tipo']]
+
+        contato.upgTelefone(telefone)
 
     def rmTelefoneContato(self, idContato, idTelefone):
         '''
@@ -573,9 +628,12 @@ if __name__ == '__main__':
     for t in ['Celular', 'Comercial', 'Fixo']:
         minha_agenda.addTipoTelefone(t)
 
-    # print(minha_agenda.getCategoriasEndereco())
-    # print(minha_agenda.getTiposTelefone())
+    print(minha_agenda.getCategoriasEndereco())
+    #print(minha_agenda.getTiposTelefone())
 
+    minha_agenda.upgCategoriaEndereco(3, 'praia')
+    print(minha_agenda.getCategoriasEndereco())
+    #
     c1 = minha_agenda.getCategoriasEndereco()[1][0]
     c2 = minha_agenda.getCategoriasEndereco()[0][0]
     # print(c1)
@@ -595,8 +653,12 @@ if __name__ == '__main__':
             {'logradouro':'Rua X', 'complemento':'Barraco', 'numero':'245A',
                 'bairro':'Centro', 'cidade':'Ifnmglândia', 'estado':'Cansaço',
                 'pais':'Brasil', 'cep':'00000-000', 'categoria':c2}],
-        telefones=[{'ddd':'38', 'prefixo':'3629', 'sulfixo':'4600',
-            'ramal':'', 'tipo':t1}, {'ddd':'38', 'prefixo':'3629',
-            'sulfixo':'4600', 'ramal':'123', 'tipo':t2}])
+        telefones=[{'ddd':'38', 'parte1':'3629', 'parte2':'4600',
+            'ramal':'', 'tipo':t1}, {'ddd':'38', 'parte1':'3629',
+            'parte2':'4600', 'ramal':'123', 'tipo':t2}])
+
+    print(minha_agenda)
+
+    minha_agenda.upgTelefoneContato(1, telefone={'id': 1, 'ddd':'34'})
 
     print(minha_agenda)
