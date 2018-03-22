@@ -621,6 +621,26 @@ class Agenda1(object):
 if __name__ == '__main__':
 
     minha_agenda = Agenda1()
+    categorias_endereco = None
+    tipos_telefone = None
+
+    def atualizaListaCategoriasEndereco():
+        global categorias_endereco
+        categorias_endereco = minha_agenda.getCategoriasEndereco()
+        l = '-' * 60
+        print(l)
+        print('Lista de categorias de endereço atualizada:')
+        print(categorias_endereco)
+        print(l)
+
+    def atualizaListaTiposTelefone():
+        global tipos_telefone
+        tipos_telefone = minha_agenda.getTiposTelefone()
+        l = '-' * 60
+        print(l)
+        print('Lista de tipos de telefone atualizada:')
+        print(tipos_telefone)
+        print(l)
 
     for c in ['Residencial', 'Comercial', 'Veraneio']:
         minha_agenda.addCategoriaEndereco(c)
@@ -628,24 +648,26 @@ if __name__ == '__main__':
     for t in ['Celular', 'Comercial', 'Fixo']:
         minha_agenda.addTipoTelefone(t)
 
-    print(minha_agenda.getCategoriasEndereco())
-    #print(minha_agenda.getTiposTelefone())
+    # print('Visão 1: ', categorias_endereco)
+    atualizaListaCategoriasEndereco()
 
-    minha_agenda.upgCategoriaEndereco(3, 'praia')
-    print(minha_agenda.getCategoriasEndereco())
-    #
-    c1 = minha_agenda.getCategoriasEndereco()[1][0]
-    c2 = minha_agenda.getCategoriasEndereco()[0][0]
+    atualizaListaTiposTelefone()
+
+    minha_agenda.upgCategoriaEndereco(3, 'Praia')
+    atualizaListaCategoriasEndereco()
+
+    # print('Visão 2: ', categorias_endereco)
+    c1 = categorias_endereco[1][0]
+    c2 = categorias_endereco[0][0]
     # print(c1)
     # print(c2)
-    #
-    # print(minha_agenda.getTiposTelefone())
 
-    t1 = minha_agenda.getTiposTelefone()[1][0]
-    t2 = minha_agenda.getTiposTelefone()[1][0]
+    t1 = tipos_telefone[1][0]
+    t2 = tipos_telefone[1][0]
     # print(t1)
     # print(t2)
 
+    print('\n''Adicionando um contato a agenda.''\n')
     minha_agenda.addContato('Danilo Nunes', 'Dan', 'apoena.net.br',
         enderecos=[{'logradouro':'Rua A', 'complemento':'', 'numero':'10',
             'bairro':'Centro', 'cidade':'Ifnmglândia', 'estado':'Cansaço',
@@ -657,8 +679,11 @@ if __name__ == '__main__':
             'ramal':'', 'tipo':t1}, {'ddd':'38', 'parte1':'3629',
             'parte2':'4600', 'ramal':'123', 'tipo':t2}])
 
+    print('\n', 'Agenda após a inclusão de um contato.', '\n')
     print(minha_agenda)
 
+    print('\n''Atualizando o telefone 1 do contato: DDD 38 -> 34.''\n')
     minha_agenda.upgTelefoneContato(1, telefone={'id': 1, 'ddd':'34'})
 
+    print('\n''Novo conteúdo da agenda.''\n')
     print(minha_agenda)
