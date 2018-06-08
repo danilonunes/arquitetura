@@ -1,8 +1,8 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Numeric, DateTime, Float
+from sqlalchemy import Column, Integer, String, DateTime, Float
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
-from orm import Base
+from model.orm import Base
 
 
 class Produto(Base):
@@ -10,8 +10,8 @@ class Produto(Base):
 
     id = Column(Integer, primary_key=True)
     nome = Column(String(50))
-    valor_custo = Column(Numeric)
-    valor_venda = Column(Numeric)
+    valor_custo = Column(Float)
+    valor_venda = Column(Float)
 
     def __init__(self, pNome, pVrCusto, pVrVenda):
         # self.id = pId
@@ -49,18 +49,18 @@ class Venda(Base):
     id = Column(Integer, primary_key=True)
     itens = relationship("ItemVenda",
                          primaryjoin="and_(Venda.id==ItemVenda.venda_id)")
-    desconto = Column(Numeric)
+    desconto = Column(Float)
     data_hora = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def __init__(self):
-        self.desconto = 0.00
+        self.desconto = 0.0
         # self.id = pId
 
     def valorTotal(self):
-        vt = 0.00
+        vt = 0.0
 
         for i in self.itens:
-            vt += self.itens[i].subTotal()
+            vt = vt + float(i.subTotal())
 
         vt -= self.desconto
 
@@ -93,11 +93,11 @@ class Venda(Base):
             self.itens[pIdProduto].quantidade -= pQtde
 
     def getItens(self):
-        return (self.itens)
+        return self.itens
 
     def __repr__(self):
-        return '<Venda(itens={0}, desconto={1}, data_hora={2})>'.format(
-            self.itens, self.desconto, str(self.data_hora))
+        return '<Venda(id={0}, itens={1}, desconto={2}, data_hora={3})>'.format(
+            self.id, self.itens, self.desconto, str(self.data_hora))
 
 
 # **************************** código de teste *********************************
@@ -106,14 +106,8 @@ if __name__ == "__main__":
 
     # importando o objeto session do módulo orm
     from orm import session
+    from datetime import date
 
-    #id = 18
-    #p = session.query(Produto).filter(Produto.id == id).all()
-    #for p in session.query(Produto).filter(Produto.id == 19):
-    #if p:
-    #    print(p)
-    #else:
-    #    print("O produto com ID {0} não foi encontrado.".format(id))
     # produtos = {}
     # produtos[1] = Produto('Produto 1', 10.003, 17.00)
     # produtos[2] = Produto('Produto 2', 20.006, 27.00)
@@ -165,7 +159,39 @@ if __name__ == "__main__":
     # print(v1) # imprimindo a venda
     # print(v1.getItens()) # imprimindo os itens da venda
 
+    # from sqlalchemy.sql.expression import func
+    #
+    # max_id_produto = session.query(func.max(Produto.id)).all()[0][0]
+    # print("Maior ID de Produto: {0}".format(max_id_produto))
+
+    # id = 18
+    # p = session.query(Produto).filter(Produto.id == id).all()
+    # for p in session.query(Produto).filter(Produto.id == 19):
+    # if p:
+    #    print(p)
+    # else:
+    #    print("O produto com ID {0} não foi encontrado.".format(id))
+
+    # select de vendas em ordem decrescente
+    #for v in session.query(Venda).order_by(Venda.data_hora.desc()).all():
+    #    print(v)
+
     from sqlalchemy.sql.expression import func
 
-    max_id_produto = session.query(func.max(Produto.id)).all()[0][0]
-    print("Maior ID de Produto: {0}".format(max_id_produto))
+    # select com intervalo de data
+    dtInicio = date(2017, 6, 9)
+    dtFim = datetime.today().date()
+    print(dtInicio)
+    print(dtFim)
+
+    # q = session.query(Venda).order_by(Venda.id).\
+    #     filter(Venda.data_hora.between(dtInicio, dtFim))
+
+    q = session.query(Venda).order_by(Venda.id).\
+        filter(func.date(Venda.data_hora) >= dtInicio,
+            func.date(Venda.data_hora) <= dtFim)
+
+    print(q)
+
+    for v in q.all():
+        print(v)
