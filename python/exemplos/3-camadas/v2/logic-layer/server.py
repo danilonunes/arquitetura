@@ -14,7 +14,7 @@ __author__ = 'Prof. Danilo Nunes <danilo.nunes@ifnmg.edu.br>'
 __updated__ = '2017-06-28T10:47:57.531741'
 __source__ = 'https://github.com/danilonunes/arquitetura/tree/master/python/exemplos/xmlrpc'
 
-print("Iniciando o AppServer ...")
+print("\nIniciando o AppServer ...")
 
 from controller import CtrlEstoque
 from xmlrpc.server import SimpleXMLRPCServer
@@ -57,7 +57,11 @@ server.register_function(finalizaVenda, "finalizaVenda")
 print("Servidor ativo na porta {0}".format(PORTA))
 print("Pressione CTRL+C para desativá-lo")
 
-server.serve_forever()
-
-if KeyboardInterrupt:
-    exit()
+try:
+    server.serve_forever()
+except KeyboardInterrupt:
+    print("Servidor desativado.\n")
+    exit(0)
+except:
+    print("Ocorreu um erro desconhecido.\n[ERRO]:\n")
+    raise
