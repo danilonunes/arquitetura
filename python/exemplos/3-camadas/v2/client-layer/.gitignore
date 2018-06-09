@@ -1,0 +1,9 @@
+*.pyc
+*.db
+
+/bin
+/include
+/lib
+/local
+
+venv

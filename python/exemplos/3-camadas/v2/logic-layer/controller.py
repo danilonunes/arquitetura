@@ -28,8 +28,7 @@ class CtrlEstoque(object):
 
         return (produtos) # retorna uma tupla
 
-    def listaVendas(self, pDtInicio=datetime.today().date(),
-        pDtFim=datetime.today().date()):
+    def listaVendas(self, pDtInicio, pDtFim):
 
         vp = [] # instancia uma lista
 
@@ -50,7 +49,7 @@ class CtrlEstoque(object):
             session.add(p)
             session.commit()
             #self.__produtos[p.id] = p
-        except Exception as e:
+        except:
             session.rollback()
             raise e
 
@@ -89,9 +88,9 @@ class CtrlEstoque(object):
         try:
             session.add(self.__vendaCorrente)
             session.commit()
-        except Exception as e:
+        except:
             session.rollback()
-            raise e
+            raise
 
         self.__vendaCorrente = None
 
@@ -102,7 +101,7 @@ class CtrlEstoque(object):
         itensVenda = []
 
         for i in self.__vendaCorrente.getItens():
-            itensVenda.append(i.produto_id, i.venda_id, i.quantidade)
+            itensVenda.append((i.produto.id, i.quantidade))
 
         return (itensVenda)
 
