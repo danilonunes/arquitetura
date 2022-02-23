@@ -1,2 +1,2 @@
 # arquitetura
-Códigos para disciplina de Arquitetura do TADS IFNMG Januária
+Códigos para disciplina de Arquitetura do BSI IFNMG Januária
