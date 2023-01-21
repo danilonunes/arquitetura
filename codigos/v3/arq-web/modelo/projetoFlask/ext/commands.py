@@ -1,7 +1,7 @@
 import click
 from projetoFlask.ext.database import db
 from projetoFlask.ext.auth import create_user
-from projetoFlask.models import Product
+from projetoFlask.ext.database import Product
 
 
 def create_db():
@@ -18,10 +18,20 @@ def populate_db():
     """Populate db with sample data"""
     data = [
         Product(
-            id=1, name="Ciabatta", price="10", description="Italian Bread"
-        ),
-        Product(id=2, name="Baguete", price="15", description="French Bread"),
-        Product(id=3, name="Pretzel", price="20", description="German Bread"),
+            id=1, 
+            name="Produto 1", 
+            price="10.00", 
+            description="Produto 1 para teste"),
+        Product(
+            id=2, 
+            name="Produto 2", 
+            price="20.00", 
+            description="Produto 2 para teste"),
+        Product(
+            id=3, 
+            name="Produto 3", 
+            price="30.00", 
+            description="Produto 3 para teste"),
     ]
     db.session.bulk_save_objects(data)
     db.session.commit()

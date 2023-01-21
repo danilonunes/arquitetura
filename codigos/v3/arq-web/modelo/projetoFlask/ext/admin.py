@@ -4,8 +4,8 @@ from flask_admin.contrib import sqla
 from flask_simplelogin import login_required
 from werkzeug.security import generate_password_hash
 
-from projetoFlask.ext.database import db
-from projetoFlask.models import Product, User
+from projetoFlask.ext.database import db, Product, User
+#from projetoFlask.models import Product, User
 
 # Proteger o admin com login via Monkey Patch
 AdminIndexView._handle_view = login_required(AdminIndexView._handle_view)

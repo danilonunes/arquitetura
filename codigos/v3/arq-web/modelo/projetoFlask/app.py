@@ -10,6 +10,7 @@ def minimal_app(**config):
 
 
 def create_app(**config):
+    # O flask reconhece o padrão
     app = minimal_app(**config)
     configuration.load_extensions(app)
     return app
