@@ -1,0 +1,13 @@
+<!doctype html>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+{% block script %}{% endblock %}
+<title>{% block title %}{% endblock %} - MVC SPA</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+  <h1><a href="{{ url_for('index') }}">MVC SPA</a></h1>
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+</section>

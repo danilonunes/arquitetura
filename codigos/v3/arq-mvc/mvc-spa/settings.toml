@@ -1,0 +1,7 @@
+[default]
+TITLE = "MVC SPA"
+SQLALCHEMY_DATABASE_URI = 'sqlite:///mvcspa.db'
+SECRET_KEY = 'flkhlkfdjaskfdjiajen'
+
+[production]
+SQLALCHEMY_DATABASE_URI = 'postgres:///...'
