@@ -1,0 +1,15 @@
+{% extends "bootstrap/base.html" %}
+<!doctype html>
+<html>
+    <head>
+        {% block head %}
+        {% endblock %}
+    </head>
+    <body>
+        {% block content %}
+        {% endblock %}
+    </body>
+    {% block footer %}
+        <a href="url_for('/exit/')" title="Logout">Sair</a>
+    {% endblock %}
+</html>
