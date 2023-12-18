@@ -2,6 +2,7 @@
 *env
 *.venv
 *.db
+*.mvc
 
 # Ignore dynaconf secret files
 .secrets.*
